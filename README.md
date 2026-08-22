@@ -1,6 +1,7 @@
 # sanity-foundry-constants
 
 [![npm version](https://img.shields.io/npm/v/@liiift-studio/sanity-foundry-constants.svg)](https://www.npmjs.com/package/@liiift-studio/sanity-foundry-constants)
+[![Sanity Studio v3–v6](https://img.shields.io/badge/Sanity%20Studio-v3%20%C2%B7%20v4%20%C2%B7%20v5%20%C2%B7%20v6-f03e2f)](#studio-compatibility)
 [![license](https://img.shields.io/npm/l/@liiift-studio/sanity-foundry-constants.svg)](./package.json)
 
 Shared, **environment-driven** constants for Liiift foundry Sanity Studios. One small package so every studio (Darden, TDF, Positype, Sorkin, MCKL…) reads the same script list and discount-requirement types from environment variables instead of hard-coding them per project. Also ships a tiny `HtmlDescription` passthrough component.
@@ -93,6 +94,38 @@ export const MyComponent = () => (
 | Package | Version |
 |---|---|
 | `react` | `>=18` |
+
+## Studio compatibility
+
+**Works in Sanity Studio v3, v4, v5 and v6 — and there is no `sanity` peer dependency at all.**
+
+That is deliberate, not an oversight. Unlike the other plugins in this family, this package is
+just constants plus one React passthrough component: it imports **nothing** from `sanity`,
+`@sanity/ui`, or `@sanity/icons`. Its only import is `react`. So there is no Studio API surface
+for a Studio major to break, and no compat shim is needed here.
+
+<details>
+<summary>Why the sibling packages need a compat shim and this one does not</summary>
+
+Across the rest of the Liiift Sanity tools, spanning Studio v3–v6 in a single build takes real
+work. `@sanity/ui` v4 (the version Studio **v6** ships — v6 does *not* ship `@sanity/ui` v5) moved
+`Tooltip`, `Menu`, `MenuButton`, `MenuItem`, `Code`, `Popover`, `Autocomplete`, `Toast` and
+`useToast` out of the package root into subpath entries, and `@sanity/icons` v5 removed every named
+`*Icon` export.
+
+The trap: **both packages still *declare* the removed names in their `.d.ts`, typed `never`.** A
+named import type-checks, compiles green, and only then fails at runtime as an undefined value.
+Sibling packages therefore route every UI symbol through
+[`@liiift-studio/sanity-ui-compat`](https://www.npmjs.com/package/@liiift-studio/sanity-ui-compat),
+which resolves the installed namespace at runtime.
+
+This package sidesteps all of it by never touching those namespaces. `SCRIPTS_OBJECT` and friends
+are plain arrays — they drop into a `defineField` options list on any Studio major because they are
+just data.
+
+**Verification status.** Exercised in three in-house Studios; not broadly validated in a running
+Sanity 6 Studio.
+</details>
 
 ## License
 
