@@ -1,5 +1,5 @@
 {
-  "name": "@liiift-studio/sanity-foundry-constants",
+  "name": "@overpunch/sanity-foundry-constants",
   "version": "1.0.4",
   "description": "Shared environment-driven constants for Liiift foundry Sanity studios.",
   "license": "MIT",

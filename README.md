@@ -1,8 +1,8 @@
 # sanity-foundry-constants
 
-[![npm version](https://img.shields.io/npm/v/@liiift-studio/sanity-foundry-constants.svg)](https://www.npmjs.com/package/@liiift-studio/sanity-foundry-constants)
+[![npm version](https://img.shields.io/npm/v/@overpunch/sanity-foundry-constants.svg)](https://www.npmjs.com/package/@overpunch/sanity-foundry-constants)
 [![Sanity Studio v3–v6](https://img.shields.io/badge/Sanity%20Studio-v3%20%C2%B7%20v4%20%C2%B7%20v5%20%C2%B7%20v6-f03e2f)](#studio-compatibility)
-[![license](https://img.shields.io/npm/l/@liiift-studio/sanity-foundry-constants.svg)](./package.json)
+[![license](https://img.shields.io/npm/l/@overpunch/sanity-foundry-constants.svg)](./package.json)
 
 Shared, **environment-driven** constants for Liiift foundry Sanity Studios. One small package so every studio (Darden, TDF, Positype, Sorkin, MCKL…) reads the same script list and discount-requirement types from environment variables instead of hard-coding them per project. Also ships a tiny `HtmlDescription` passthrough component.
 
@@ -11,10 +11,10 @@ The exported lists are derived **at import time** from environment variables —
 ## Install
 
 ```bash
-npm install @liiift-studio/sanity-foundry-constants
+npm install @overpunch/sanity-foundry-constants
 ```
 
-Import specifier: `@liiift-studio/sanity-foundry-constants` (dual ESM/CJS build; `react >=18` peer dependency).
+Import specifier: `@overpunch/sanity-foundry-constants` (dual ESM/CJS build; `react >=18` peer dependency).
 
 ## Environment variables
 
@@ -47,7 +47,7 @@ import {
 	SCRIPTS_OBJECT,
 	DISCOUNT_REQUIREMENT_TYPES,
 	DISCOUNT_REQUIREMENT_TYPES_OBJECT,
-} from '@liiift-studio/sanity-foundry-constants'
+} from '@overpunch/sanity-foundry-constants'
 
 // With SANITY_STUDIO_SCRIPTS="latin,greek":
 SCRIPTS // => ['latin', 'greek']
@@ -64,7 +64,7 @@ The `*_OBJECT` arrays plug directly into a select field's `options.list`:
 
 ```typescript
 import { defineField } from 'sanity'
-import { SCRIPTS_OBJECT } from '@liiift-studio/sanity-foundry-constants'
+import { SCRIPTS_OBJECT } from '@overpunch/sanity-foundry-constants'
 
 defineField({
 	name: 'script',
@@ -80,7 +80,7 @@ defineField({
 
 ```tsx
 import React from 'react'
-import { HtmlDescription } from '@liiift-studio/sanity-foundry-constants'
+import { HtmlDescription } from '@overpunch/sanity-foundry-constants'
 
 export const MyComponent = () => (
 	<HtmlDescription>
@@ -116,7 +116,7 @@ work. `@sanity/ui` v4 (the version Studio **v6** ships — v6 does *not* ship `@
 The trap: **both packages still *declare* the removed names in their `.d.ts`, typed `never`.** A
 named import type-checks, compiles green, and only then fails at runtime as an undefined value.
 Sibling packages therefore route every UI symbol through
-[`@liiift-studio/sanity-ui-compat`](https://www.npmjs.com/package/@liiift-studio/sanity-ui-compat),
+[`@overpunch/sanity-ui-compat`](https://www.npmjs.com/package/@overpunch/sanity-ui-compat),
 which resolves the installed namespace at runtime.
 
 This package sidesteps all of it by never touching those namespaces. `SCRIPTS_OBJECT` and friends

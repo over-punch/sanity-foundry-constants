@@ -1,4 +1,4 @@
-// Entry point for @liiift-studio/sanity-foundry-constants
+// Entry point for @overpunch/sanity-foundry-constants
 
 export {
 	SCRIPTS,
